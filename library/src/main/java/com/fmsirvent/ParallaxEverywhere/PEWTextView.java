@@ -18,6 +18,8 @@ public class PEWTextView extends TextView {
     private boolean reverseY = false;
     private int scrollSpaceX = 0;
     private int scrollSpaceY = 0;
+    private boolean blockParallaxX = false;
+    private boolean blockParallaxY = false;
     private int screenHeight;
     private int screenWidth;
     private float heightView;
@@ -58,6 +60,9 @@ public class PEWTextView extends TextView {
     private void checkAttributes(AttributeSet attrs) {
         TypedArray arr = getContext().obtainStyledAttributes(attrs, R.styleable.PEWAttrs);
         int reverse = arr.getInt(R.styleable.PEWAttrs_reverse, 1);
+
+        blockParallaxX = arr.getBoolean(R.styleable.PEWAttrs_block_parallax_x, false);
+        blockParallaxY = arr.getBoolean(R.styleable.PEWAttrs_block_parallax_y, false);
 
         reverseX = false;
         reverseY = false;
@@ -125,7 +130,8 @@ public class PEWTextView extends TextView {
         int[] location = new int[2];
         getLocationOnScreen(location);
 
-        if (scrollSpaceY != 0) {
+        if (scrollSpaceY != 0
+                && !blockParallaxY) {
             float locationY = (float) location[1];
             float locationUsableY = locationY + heightView / 2;
             float scrollDeltaY = locationUsableY / screenHeight;
@@ -136,7 +142,8 @@ public class PEWTextView extends TextView {
                 setScrollY((int) (Math.min(Math.max((0.5f - scrollDeltaY), -0.5f), 0.5f) * scrollSpaceY));
         }
 
-        if (scrollSpaceX != 0) {
+        if (scrollSpaceX != 0
+                && !blockParallaxX) {
             float locationX = (float) location[0];
             float locationUsableX = locationX + widthView / 2;
             float scrollDeltaX = locationUsableX / screenWidth;

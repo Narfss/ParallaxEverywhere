@@ -33,6 +33,7 @@
                 android:textSize="90sp"
                 pew:parallax_x="160dp"
                 pew:parallax_y="160dp"
+                pew:block_parallax_x="true"
                 pew:reverse="reverseX" />
         </FrameLayout>
 

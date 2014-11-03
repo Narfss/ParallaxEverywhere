@@ -11,5 +11,8 @@
         <attr name="parallax_x" format="dimension"/>
         <attr name="parallax_y" format="dimension"/>
 
+        <attr name="block_parallax_x" format="boolean"/>
+        <attr name="block_parallax_y" format="boolean"/>
+
     </declare-styleable>
 </resources>

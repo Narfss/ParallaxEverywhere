@@ -175,7 +175,7 @@ public class ParallaxEverywhereSample extends Activity implements ActionBar.TabL
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_parallax_everywhere_sample, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_parallax_everywhere_alicante, container, false);
             return rootView;
         }
     }

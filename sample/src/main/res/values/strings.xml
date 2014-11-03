@@ -2,10 +2,17 @@
 <resources>
 
     <string name="app_name">ParallaxEverywhere</string>
-    <string name="title_section1">Section 1</string>
+    <string name="title_section1">Alicante</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+
+    <string name="action_settings">About</string>
+
+    <string name="alicante_texto_1">Alicante (Spanish: [aliˈkante]), or Alacant (Valencian: [alaˈkant]), both official names, is a city and port in Spain on the Costa Blanca, the capital of the province of Alicante and of the comarca of Alacantí, in the south of the Valencian Community. It is also a historic Mediterranean port. The population of the city of Alicante proper was 334,329, estimated as of 2011, ranking as the second-largest Valencian city.[1] Including nearby municipalities, the Alicante conurbation had 462,281 residents.[2] The population of the metropolitan area (including Elche and satellite towns) was 771,061 as of 2011 estimates, ranking as the eighth-largest metropolitan area of Spain.[3]</string>
+    <string name="alicante_texto_2">Amongst the most notable features of the city are the Castle of Santa Bárbara, which sits high above the city, and the port of Alicante. The latter was the subject of bitter controversy in 2006–2007 as residents battled, successfully, to keep it from being changed into an industrial estate.</string>
+    <string name="alicante_texto_3">The Santa Bárbara castle is situated on Mount Benacantil, overlooking the city. The tower (La Torreta) at the top, is the oldest part of the castle, while part of the lowest zone and the walls were constructed later in the 18th century.</string>
+    <string name="alicante_texto_4">The promenade Explanada de España, lined by palm trees, is paved with 6.5 million marble floor tiles creating a wavy form and is one of the most lovely promenades in Spain. The Promenade extends from the Port of Alicante to the Gran Vía and ends at the famous statue of Mark Hersch. For the people of Alicante, the promenade is the meeting place for the traditional Spanish paseo, or stroll along the waterfront in the evenings, and a venue for outdoor musical concerts. At the end of the promenade is a monument by the artist Bañuls of the 19th century.</string>
+    <string name="alicante_text_0">Alicante</string>
+    <string name="barcelona_text_0">Barcelona</string>
 
 </resources>

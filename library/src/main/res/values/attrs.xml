@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="PEWImageView">
+    <declare-styleable name="PEWAttrs">
         <attr name="reverse">
             <enum name="none" value="1" />
             <enum name="reverseX" value="2" />

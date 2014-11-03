@@ -56,8 +56,8 @@ public class PEWTextView extends TextView {
     }
 
     private void checkAttributes(AttributeSet attrs) {
-        TypedArray arr = getContext().obtainStyledAttributes(attrs, R.styleable.PEWImageView);
-        int reverse = arr.getInt(R.styleable.PEWImageView_reverse, 1);
+        TypedArray arr = getContext().obtainStyledAttributes(attrs, R.styleable.PEWAttrs);
+        int reverse = arr.getInt(R.styleable.PEWAttrs_reverse, 1);
 
         reverseX = false;
         reverseY = false;
@@ -76,8 +76,8 @@ public class PEWTextView extends TextView {
                 break;
         }
 
-        scrollSpaceX = arr.getDimensionPixelSize(R.styleable.PEWImageView_parallax_x, 0);
-        scrollSpaceY = arr.getDimensionPixelSize(R.styleable.PEWImageView_parallax_y, 0);
+        scrollSpaceX = arr.getDimensionPixelSize(R.styleable.PEWAttrs_parallax_x, 0);
+        scrollSpaceY = arr.getDimensionPixelSize(R.styleable.PEWAttrs_parallax_y, 0);
 
         arr.recycle();
     }

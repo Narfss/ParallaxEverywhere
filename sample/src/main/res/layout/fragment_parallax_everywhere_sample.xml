@@ -22,24 +22,27 @@
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-            <com.fmsirvent.ParallaxEverywhere.PEWImageView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/alicante_santa_barbara"
-                pew:reverse="reverseX"/>
+
+                <com.fmsirvent.ParallaxEverywhere.PEWImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/alicante_santa_barbara"
+                    pew:reverse="reverseX" />
+
                 <com.fmsirvent.ParallaxEverywhere.PEWTextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:gravity="bottom|center_horizontal"
                     android:text="Alicante"
                     android:textColor="@android:color/white"
                     android:textSize="80sp"
-                    android:gravity="bottom|center_horizontal"
                     pew:parallax_x="160dp"
                     pew:parallax_y="160dp"
-                    pew:reverse="reverseX"/>
+                    pew:reverse="reverseX" />
             </FrameLayout>
 
             <TextView

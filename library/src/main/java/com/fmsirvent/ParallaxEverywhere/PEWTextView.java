@@ -25,29 +25,34 @@ public class PEWTextView extends TextView {
 
     public PEWTextView(Context context) {
         super(context);
-        if (!isInEditMode())
+        if (!isInEditMode()) {
             parallaxAnimation();
+
+        }
     }
 
     public PEWTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        checkAttributes(attrs);
-        if (!isInEditMode())
+        if (!isInEditMode()) {
+            checkAttributes(attrs);
             parallaxAnimation();
+        }
     }
 
     public PEWTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        checkAttributes(attrs);
-        if (!isInEditMode())
+        if (!isInEditMode()) {
+            checkAttributes(attrs);
             parallaxAnimation();
+        }
     }
 
     public PEWTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        checkAttributes(attrs);
-        if (!isInEditMode())
+        if (!isInEditMode()) {
+            checkAttributes(attrs);
             parallaxAnimation();
+        }
     }
 
     private void checkAttributes(AttributeSet attrs) {

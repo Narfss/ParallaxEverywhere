@@ -27,22 +27,25 @@ public class PEWImageView  extends ImageView {
 
     public PEWImageView(Context context) {
         super(context);
-        if (!isInEditMode())
+        if (!isInEditMode()) {
             parallaxAnimation();
+        }
     }
 
     public PEWImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        checkAttributes(attrs);
-        if (!isInEditMode())
+        if (!isInEditMode()) {
+            checkAttributes(attrs);
             parallaxAnimation();
+        }
     }
 
     public PEWImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        checkAttributes(attrs);
-        if (!isInEditMode())
+        if (!isInEditMode()) {
+            checkAttributes(attrs);
             parallaxAnimation();
+        }
     }
 
     private void checkAttributes(AttributeSet attrs) {

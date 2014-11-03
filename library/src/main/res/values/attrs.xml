@@ -7,5 +7,9 @@
             <enum name="reverseY" value="3" />
             <enum name="reverseBoth" value="4" />
         </attr>
+
+        <attr name="parallax_x" format="dimension"/>
+        <attr name="parallax_y" format="dimension"/>
+
     </declare-styleable>
 </resources>

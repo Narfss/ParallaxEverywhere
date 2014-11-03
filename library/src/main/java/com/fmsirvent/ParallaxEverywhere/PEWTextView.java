@@ -8,38 +8,43 @@ import android.util.Log;
 import android.view.Display;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * Created by fmsirvent on 03/11/14.
  */
-public class PEWImageView  extends ImageView {
+public class PEWTextView extends TextView {
     private boolean reverseX = false;
     private boolean reverseY = false;
-    private float scrollSpaceX = 0;
-    private float scrollSpaceY = 0;
-
-    private int screenWidth;
+    private int scrollSpaceX = 0;
+    private int scrollSpaceY = 0;
     private int screenHeight;
+    private int screenWidth;
+    private float heightView;
+    private float widthView;
 
-    private float heightImageView;
-    private float widthImageView;
-
-    public PEWImageView(Context context) {
+    public PEWTextView(Context context) {
         super(context);
         if (!isInEditMode())
             parallaxAnimation();
     }
 
-    public PEWImageView(Context context, AttributeSet attrs) {
+    public PEWTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         checkAttributes(attrs);
         if (!isInEditMode())
             parallaxAnimation();
     }
 
-    public PEWImageView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+    public PEWTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        checkAttributes(attrs);
+        if (!isInEditMode())
+            parallaxAnimation();
+    }
+
+    public PEWTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
         checkAttributes(attrs);
         if (!isInEditMode())
             parallaxAnimation();
@@ -66,27 +71,8 @@ public class PEWImageView  extends ImageView {
                 break;
         }
 
-        switch (getScaleType()) {
-            case CENTER:
-            case CENTER_CROP:
-            case CENTER_INSIDE:
-                break;
-            case FIT_CENTER:
-                Log.d("ParallaxEverywhere", "Scale type firCenter unsupported");
-                break;
-            case FIT_END:
-                Log.d("ParallaxEverywhere", "Scale type fitEnd unsupported");
-                break;
-            case FIT_START:
-                Log.d("ParallaxEverywhere", "Scale type fitStart unsupported");
-                break;
-            case FIT_XY:
-                Log.d("ParallaxEverywhere", "Scale type fitXY unsupported");
-                break;
-            case MATRIX:
-                Log.d("ParallaxEverywhere", "Scale type matrix unsupported");
-                break;
-        }
+        scrollSpaceX = arr.getDimensionPixelSize(R.styleable.PEWImageView_parallax_x, 0);
+        scrollSpaceY = arr.getDimensionPixelSize(R.styleable.PEWImageView_parallax_y, 0);
 
         arr.recycle();
     }
@@ -94,45 +80,8 @@ public class PEWImageView  extends ImageView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        if (getDrawable() != null) {
-
-            int dheight = getDrawable().getIntrinsicHeight();
-            int dwidth = getDrawable().getIntrinsicWidth();
-            int vheight = getMeasuredHeight();
-            int vwidth = getMeasuredWidth();
-
-            float scale;
-
-            float dnewHeight = 0;
-            float dnewWidth = 0;
-
-            switch (getScaleType()) {
-                case CENTER_CROP:
-                case CENTER:
-                case CENTER_INSIDE:
-                    if (dwidth * vheight > vwidth * dheight) {
-                        scale = (float) vheight / (float) dheight;
-                        dnewWidth = dwidth * scale;
-                        dnewHeight = vheight;
-                    } else {
-                        scale = (float) vwidth / (float) dwidth;
-                        dnewWidth = vwidth;
-                        dnewHeight = dheight * scale;
-                    }
-                    break;
-                case FIT_CENTER:
-                case FIT_END:
-                case FIT_START:
-                case FIT_XY:
-                case MATRIX:
-                    break;
-            }
-
-            scrollSpaceY = (dnewHeight > vheight) ? (dnewHeight - vheight) : 0;
-            scrollSpaceX = (dnewWidth > vwidth) ? (dnewWidth - vwidth) : 0;
-        }
     }
+
 
     private void parallaxAnimation() {
         initSizeScreen();
@@ -149,13 +98,14 @@ public class PEWImageView  extends ImageView {
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                heightImageView = (float) getHeight();
-                widthImageView = (float) getWidth();
+                heightView = (float) getHeight();
+                widthView = (float) getWidth();
 
                 applyParallax();
             }
         });
     }
+
 
     private void initSizeScreen() {
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
@@ -172,7 +122,7 @@ public class PEWImageView  extends ImageView {
 
         if (scrollSpaceY != 0) {
             float locationY = (float) location[1];
-            float locationUsableY = locationY + heightImageView / 2;
+            float locationUsableY = locationY + heightView / 2;
             float scrollDeltaY = locationUsableY / screenHeight;
 
             if (reverseY)
@@ -183,30 +133,16 @@ public class PEWImageView  extends ImageView {
 
         if (scrollSpaceX != 0) {
             float locationX = (float) location[0];
-            float locationUsableX = locationX + widthImageView / 2;
+            float locationUsableX = locationX + widthView / 2;
             float scrollDeltaX = locationUsableX / screenWidth;
 
             if (reverseX) {
                 setScrollX((int) (Math.min(Math.max((0.5f - scrollDeltaX), -0.5f), 0.5f) * -scrollSpaceX));
             } else {
+                Log.d("Scroll value", "Value: "+ (int) (Math.min(Math.max((0.5f - scrollDeltaX), -0.5f), 0.5f) * scrollSpaceX));
                 setScrollX((int) (Math.min(Math.max((0.5f - scrollDeltaX), -0.5f), 0.5f) * scrollSpaceX));
             }
         }
     }
 
-    public float getScrollSpaceX() {
-        return scrollSpaceX;
-    }
-
-    public void setScrollSpaceX(float scrollSpaceX) {
-        this.scrollSpaceX = scrollSpaceX;
-    }
-
-    public float getScrollSpaceY() {
-        return scrollSpaceY;
-    }
-
-    public void setScrollSpaceY(float scrollSpaceY) {
-        this.scrollSpaceY = scrollSpaceY;
-    }
 }

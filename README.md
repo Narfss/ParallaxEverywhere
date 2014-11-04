@@ -67,6 +67,8 @@ In widgets widthout images is necessary specify the size of parallax effect. The
 
 ```
 
+![parallax-everywhere-animation-optimize.gif](https://bitbucket.org/repo/4n5roa/images/3116732635-parallax-everywhere-animation-optimize.gif)
+
 ### How do I get set up? ###
 
 #### .AAR on Android studio ####

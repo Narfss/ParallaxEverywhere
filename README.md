@@ -4,9 +4,10 @@ Parallax everywhere (PEW) is a library with alternative android widgets with par
 
 ### Widgets width effect? ###
 
-ImageView -> PEWImageView
-
-TextView -> PEWTextView
+Android widget | PEW widget
+--- | ---
+ImageView | PEWImageView
+TextView | PEWTextView
 
 ### How it works? ###
 
@@ -19,18 +20,18 @@ TextView -> PEWTextView
 
 **All PEW**
 
-* reverse  = ["none", "reverseX", "reverseY", "reverseBoth"]
+* **reverse**  = ["none", "reverseX", "reverseY", "reverseBoth"]
   Change animation direction of parallax effect. Default value "none".
 
-* "block_parallax_x" and "block_parallax_y"  = "boolean"
+* **block_parallax_x** and **block_parallax_y**  = "boolean"
   Blocks parallax effect. Default value false.
 
-* "interpolation" = ["linear", "accelerate_decelerate", "accelerate", "anticipate", "anticipate_overshoot", "bounce", "decelerate", "overshoot"]
+* **interpolation** = ["linear", "accelerate_decelerate", "accelerate", "anticipate", "anticipate_overshoot", "bounce", "decelerate", "overshoot"]
   Animation interpolation. Default value "linear".
 
 **Only: no image PEW* **
 
-* "parallax_x" and "parallax_y" = "dimension"
+* **parallax_x** and **parallax_y** = "dimension"
 In widgets without images is necessary specify the size of parallax effect. The size will be split in half for each side. Default value 0.
   
 

@@ -8,12 +8,16 @@ import android.util.Log;
 import android.view.Display;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.animation.Interpolator;
 import android.widget.ImageView;
+
+import com.fmsirvent.ParallaxEverywhere.Utils.InterpolatorSelector;
 
 /**
  * Created by fmsirvent on 03/11/14.
  */
 public class PEWImageView  extends ImageView {
+
     private boolean reverseX = false;
     private boolean reverseY = false;
     private float scrollSpaceX = 0;
@@ -24,8 +28,11 @@ public class PEWImageView  extends ImageView {
 
     private float heightImageView;
     private float widthImageView;
+
     private boolean blockParallaxX = false;
     private boolean blockParallaxY = false;
+
+    Interpolator interpolator = null;
 
     public PEWImageView(Context context) {
         super(context);
@@ -95,6 +102,10 @@ public class PEWImageView  extends ImageView {
                 Log.d("ParallaxEverywhere", "Scale type matrix unsupported");
                 break;
         }
+
+        int interpolationId = arr.getInt(R.styleable.PEWAttrs_interpolation, 0);
+
+        interpolator = InterpolatorSelector.interpolatorId(interpolationId);
 
         arr.recycle();
     }
@@ -183,10 +194,12 @@ public class PEWImageView  extends ImageView {
             float locationUsableY = locationY + heightImageView / 2;
             float scrollDeltaY = locationUsableY / screenHeight;
 
+            float interpolatedScrollDeltaY = interpolator.getInterpolation(scrollDeltaY);
+
             if (reverseY)
-                setScrollY((int) (Math.min(Math.max((0.5f - scrollDeltaY), -0.5f), 0.5f) * -scrollSpaceY));
+                setScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * -scrollSpaceY));
             else
-                setScrollY((int) (Math.min(Math.max((0.5f - scrollDeltaY), -0.5f), 0.5f) * scrollSpaceY));
+                setScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * scrollSpaceY));
         }
 
         if (scrollSpaceX != 0) {
@@ -194,10 +207,12 @@ public class PEWImageView  extends ImageView {
             float locationUsableX = locationX + widthImageView / 2;
             float scrollDeltaX = locationUsableX / screenWidth;
 
+            float interpolatedScrollDeltaX = interpolator.getInterpolation(scrollDeltaX);
+
             if (reverseX) {
-                setScrollX((int) (Math.min(Math.max((0.5f - scrollDeltaX), -0.5f), 0.5f) * -scrollSpaceX));
+                setScrollX((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaX), -0.5f), 0.5f) * -scrollSpaceX));
             } else {
-                setScrollX((int) (Math.min(Math.max((0.5f - scrollDeltaX), -0.5f), 0.5f) * scrollSpaceX));
+                setScrollX((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaX), -0.5f), 0.5f) * scrollSpaceX));
             }
         }
     }
@@ -217,4 +232,6 @@ public class PEWImageView  extends ImageView {
     public void setScrollSpaceY(float scrollSpaceY) {
         this.scrollSpaceY = scrollSpaceY;
     }
+
+
 }

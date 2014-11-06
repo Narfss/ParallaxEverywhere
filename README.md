@@ -12,7 +12,7 @@ TextView -> PEWTextView
 
 * Any parallax widget (PEW*) needs be inside a view with scroll events, ej: scrollView, listView, gridView....
 * Parallax effect on widgets will be related to its position on device screen.
-* Parallax effect in ImageView is calculate witn left image in Scale mode centerCrop, centerInside or center. You can't make more parallax effect.
+* Parallax effect in ImageView is calculate with left image in Scale mode centerCrop, centerInside or center. You can't make more parallax effect.
 * Parallax effect in no image widgets needs a size parallax parameter (read:  Attributes)
 
 ### Attributes ###
@@ -20,15 +20,18 @@ TextView -> PEWTextView
 **All PEW**
 
 * reverse  = ["none", "reverseX", "reverseY", "reverseBoth"]
-  Change animation direction of parallax effect
+  Change animation direction of parallax effect. Default value "none".
 
 * "block_parallax_x" and "block_parallax_y"  = "boolean"
-  Blocks parallax effect.
+  Blocks parallax effect. Default value false.
+
+* "interpolation" = ["linear", "accelerate_decelerate", "accelerate", "anticipate", "anticipate_overshoot", "bounce", "decelerate", "overshoot"]
+  Animation interpolation. Default value "linear".
 
 **Only: no image PEW* **
 
 * "parallax_x" and "parallax_y" = "dimension"
-In widgets widthout images is necessary specify the size of parallax effect. The size will be split in half for each side.
+In widgets without images is necessary specify the size of parallax effect. The size will be split in half for each side. Default value 0.
   
 
 ### Example ###
@@ -73,12 +76,12 @@ In widgets widthout images is necessary specify the size of parallax effect. The
 
 #### .AAR on Android studio ####
 * Download library.aar
-* File -> New Module -> Import .JAT or .AAR Package
+* File -> New Module -> Import .JAR or .AAR Package
 * File name: browse to library.aar
 * Name project: ParallaxEverywhere
 
 #### Gradle ####
-*Comming soon*
+*Coming soon*
 
 ```
 #!gradle

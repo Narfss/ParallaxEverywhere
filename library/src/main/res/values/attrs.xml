@@ -14,5 +14,16 @@
         <attr name="block_parallax_x" format="boolean"/>
         <attr name="block_parallax_y" format="boolean"/>
 
+        <attr name="interpolation">
+            <enum name="linear" value="0" />
+            <enum name="accelerate_decelerate" value="1" />
+            <enum name="accelerate" value="2" />
+            <enum name="anticipate" value="3" />
+            <enum name="anticipate_overshoot" value="4" />
+            <enum name="bounce" value="5" />
+            <enum name="decelerate" value="6" />
+            <enum name="overshoot" value="7" />
+        </attr>
+
     </declare-styleable>
 </resources>

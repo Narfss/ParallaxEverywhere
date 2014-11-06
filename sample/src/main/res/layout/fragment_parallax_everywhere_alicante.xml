@@ -21,7 +21,7 @@
                 android:layout_margin="10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/alicante_santa_barbara"
-                pew:reverse="reverseX" />
+                pew:reverse="reverseX"/>
 
             <com.fmsirvent.ParallaxEverywhere.PEWTextView
                 android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                 pew:block_parallax_x="true"
                 pew:parallax_x="160dp"
                 pew:parallax_y="160dp"
-                pew:reverse="reverseX" />
+                pew:reverse="reverseX"/>
         </FrameLayout>
 
         <TextView

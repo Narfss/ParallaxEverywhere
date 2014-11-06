@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.Display;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.animation.Interpolator;
 import android.widget.TextView;
+
+import com.fmsirvent.ParallaxEverywhere.Utils.InterpolatorSelector;
 
 /**
  * Created by fmsirvent on 03/11/14.
@@ -24,6 +27,7 @@ public class PEWTextView extends TextView {
     private int screenWidth;
     private float heightView;
     private float widthView;
+    private Interpolator interpolator;
 
     public PEWTextView(Context context) {
         super(context);
@@ -84,6 +88,11 @@ public class PEWTextView extends TextView {
         scrollSpaceX = arr.getDimensionPixelSize(R.styleable.PEWAttrs_parallax_x, 0);
         scrollSpaceY = arr.getDimensionPixelSize(R.styleable.PEWAttrs_parallax_y, 0);
 
+
+        int interpolationId = arr.getInt(R.styleable.PEWAttrs_interpolation, 0);
+
+        interpolator = InterpolatorSelector.interpolatorId(interpolationId);
+
         arr.recycle();
     }
 
@@ -136,10 +145,12 @@ public class PEWTextView extends TextView {
             float locationUsableY = locationY + heightView / 2;
             float scrollDeltaY = locationUsableY / screenHeight;
 
+            float interpolatedScrollDeltaY = interpolator.getInterpolation(scrollDeltaY);
+
             if (reverseY)
-                setScrollY((int) (Math.min(Math.max((0.5f - scrollDeltaY), -0.5f), 0.5f) * -scrollSpaceY));
+                setScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * -scrollSpaceY));
             else
-                setScrollY((int) (Math.min(Math.max((0.5f - scrollDeltaY), -0.5f), 0.5f) * scrollSpaceY));
+                setScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * scrollSpaceY));
         }
 
         if (scrollSpaceX != 0
@@ -148,11 +159,12 @@ public class PEWTextView extends TextView {
             float locationUsableX = locationX + widthView / 2;
             float scrollDeltaX = locationUsableX / screenWidth;
 
+            float interpolatedScrollDeltaX = interpolator.getInterpolation(scrollDeltaX);
+
             if (reverseX) {
-                setScrollX((int) (Math.min(Math.max((0.5f - scrollDeltaX), -0.5f), 0.5f) * -scrollSpaceX));
+                setScrollX((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaX), -0.5f), 0.5f) * -scrollSpaceX));
             } else {
-                Log.d("Scroll value", "Value: "+ (int) (Math.min(Math.max((0.5f - scrollDeltaX), -0.5f), 0.5f) * scrollSpaceX));
-                setScrollX((int) (Math.min(Math.max((0.5f - scrollDeltaX), -0.5f), 0.5f) * scrollSpaceX));
+                setScrollX((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaX), -0.5f), 0.5f) * scrollSpaceX));
             }
         }
     }

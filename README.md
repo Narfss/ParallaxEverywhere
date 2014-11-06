@@ -2,7 +2,7 @@
 
 Parallax everywhere (PEW) is a library with alternative android widgets with parallax effects.
 
-### Widgets width efect? ###
+### Widgets width effect? ###
 
 ImageView -> PEWImageView
 

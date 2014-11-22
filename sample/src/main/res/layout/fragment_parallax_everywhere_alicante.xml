@@ -30,7 +30,7 @@
                 android:gravity="bottom|center_horizontal"
                 android:text="@string/alicante_text_0"
                 android:textColor="@android:color/white"
-                android:textSize="90sp"
+                android:textSize="70sp"
                 pew:block_parallax_x="true"
                 pew:parallax_x="160dp"
                 pew:parallax_y="160dp"
@@ -110,7 +110,7 @@
 
             <com.fmsirvent.ParallaxEverywhere.PEWImageView
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:layout_weight="1"

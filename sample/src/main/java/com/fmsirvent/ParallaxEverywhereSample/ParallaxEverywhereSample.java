@@ -1,20 +1,20 @@
 package com.fmsirvent.ParallaxEverywhereSample;
 
-import java.util.Locale;
-
-import android.app.Activity;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.Locale;
 
 
 public class ParallaxEverywhereSample extends Activity implements ActionBar.TabListener {
@@ -89,6 +89,7 @@ public class ParallaxEverywhereSample extends Activity implements ActionBar.TabL
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            startActivity(AboutActivity.createIntent(this));
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -123,13 +124,13 @@ public class ParallaxEverywhereSample extends Activity implements ActionBar.TabL
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            return PlaceholderFragment.newInstance(position);
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
@@ -140,8 +141,6 @@ public class ParallaxEverywhereSample extends Activity implements ActionBar.TabL
                     return getString(R.string.title_section1).toUpperCase(l);
                 case 1:
                     return getString(R.string.title_section2).toUpperCase(l);
-                case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
             }
             return null;
         }
@@ -174,8 +173,19 @@ public class ParallaxEverywhereSample extends Activity implements ActionBar.TabL
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_parallax_everywhere_alicante, container, false);
+                                 Bundle savedInstanceState) {
+            int anInt = getArguments().getInt(ARG_SECTION_NUMBER);
+            int resource;
+            switch (anInt) {
+                case 0:
+                default:
+                    resource = R.layout.fragment_parallax_everywhere_alicante;
+                    break;
+                case 1:
+                    resource = R.layout.fragment_parallax_everywhere_barcelona;
+                    break;
+            }
+            View rootView = inflater.inflate(resource, container, false);
             return rootView;
         }
     }

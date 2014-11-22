@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion '21.0.2'
+    buildToolsVersion '21.1.0'
 
     defaultConfig {
         applicationId "com.fmsirvent.ParallaxEverywhereSample"
-        minSdkVersion 15
+        minSdkVersion 14
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
@@ -22,6 +22,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // You must install or update the Support Repository through the SDK manager to use this dependency.
-    compile 'com.android.support:support-v13:19.+'
+    compile 'com.android.support:support-v13:21.0.0'
+    compile 'com.android.support:support-v4:21.0.0'
     compile project(':library')
 }

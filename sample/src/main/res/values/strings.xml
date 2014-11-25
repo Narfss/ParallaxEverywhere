@@ -19,6 +19,6 @@
     <string name="barcelona_texto_3">"Barcelona has a great number of museums, which cover different areas and eras. The National Museum of Art of Catalonia possesses a well-known collection of Romanesque art while the Barcelona Museum of Contemporary Art focuses on post-1945 Catalan and Spanish art. The Fundació Joan Miró, Picasso Museum and Fundació Antoni Tàpies hold important collections of these world-renowned artists."</string>
     <string name="barcelona_texto_4">"At the very top of the monument stands a 7.2 m (24 ft) tall bronze statue atop a 40 m (131 ft) tall Corinthian column. The statue was sculpted by Rafael Atché and is said to depict Columbus pointing towards the New World with his right hand, while holding a scroll in the left. It is a commonly held belief that instead of pointing to the west towards the New World, the statue points east towards Columbus's supposed home city of Genoa."</string>
     <string name="barcelona_guell">Parc Güell</string>
-    <string name="about_text_2"><![CDATA[This app is a demo of a library.<br/>Developed by: <a href=\'http://www.fmsirvent.com\'>fmSirvent</a><br/>You can see more info at: <a href=\'https://github.com/Narfss/ParallaxEverywhere\'>https://github.com/Narfss/ParallaxEverywhere</a>]]></string>
+    <string name="about_text_2"><![CDATA[This is a demo app of a library.<br/>Developed by: <a href=\'http://www.fmsirvent.com\'>fmSirvent</a><br/>You can see more info at: <a href=\'https://github.com/Narfss/ParallaxEverywhere\'>https://github.com/Narfss/ParallaxEverywhere</a>]]></string>
 
 </resources>

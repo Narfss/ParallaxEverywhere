@@ -1,6 +1,6 @@
 # Parallax Everywhere #
 
-Parallax everywhere (PEW) is a library with alternative android widgets with parallax effects.
+Parallax everywhere (PEW) is a library with alternative android widgets using parallax effects.
 
 ## Demo ##
 
@@ -19,9 +19,9 @@ TextView | PEWTextView
 
 ### How it works? ###
 
-* Any parallax widget (PEW*) needs be inside a view with scroll events, ej: scrollView, listView, gridView....
+* Any parallax widget (PEW*) needs to be inside a view with scroll events, ej: scrollView, listView, gridView....
 * Parallax effect on widgets will be related to its position on device screen.
-* Parallax effect in ImageView is calculate with left image in Scale mode centerCrop, centerInside or center. You can't make more parallax effect.
+* Parallax effect in ImageView is calculated with left image in Scale mode centerCrop, centerInside or center. You can't make more parallax effect.
 * Parallax effect in no image widgets needs a size parallax parameter (read:  Attributes)
 
 ### Show me the code ###
@@ -65,7 +65,7 @@ TextView | PEWTextView
 **All PEW**
 
 * **reverse**  = ["none", "reverseX", "reverseY", "reverseBoth"]
-  Change animation direction of parallax effect. Default value "none".
+  Change the direction of parallax effect. Default value "none".
 
 * **block_parallax_x** and **block_parallax_y**  = "boolean"
   Blocks parallax effect. Default value false.

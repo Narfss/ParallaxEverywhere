@@ -8,7 +8,7 @@ Parallax everywhere (PEW) is a library with alternative android widgets using pa
 
 You can try the demo app on google play.
 
-http://play.google.com/store/apps/details?id=com.fmsirvent.parallaxeverywhere
+https://play.google.com/store/apps/details?id=com.fmsirvent.ParallaxEverywhereSample
 
 ### Widgets with effect? ###
 

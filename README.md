@@ -73,7 +73,7 @@ TextView | PEWTextView
 * **interpolation** = ["linear", "accelerate_decelerate", "accelerate", "anticipate", "anticipate_overshoot", "bounce", "decelerate", "overshoot"]
   Animation interpolation. Default value "linear".
 
-**Only: no image PEW* **
+**Only: no image PEW**
 
 * **parallax_x** and **parallax_y** = "dimension"
 In non widgets images is necessary specify the size of parallax effect. The size will be split in half for each side. Default value 0.

@@ -2,7 +2,15 @@
 
 Parallax everywhere (PEW) is a library with alternative android widgets with parallax effects.
 
-### Widgets width effect? ###
+## Demo ##
+
+![](https://raw.githubusercontent.com/Narfss/ParallaxEverywhere/master/parallax-everywhere-animation-optimize.gif)
+
+You can try the demo app on google play.
+
+http://play.google.com/store/apps/details?id=com.fmsirvent.parallaxeverywhere
+
+### Widgets with effect? ###
 
 Android widget | PEW widget
 --- | ---
@@ -16,26 +24,7 @@ TextView | PEWTextView
 * Parallax effect in ImageView is calculate with left image in Scale mode centerCrop, centerInside or center. You can't make more parallax effect.
 * Parallax effect in no image widgets needs a size parallax parameter (read:  Attributes)
 
-### Attributes ###
-
-**All PEW**
-
-* **reverse**  = ["none", "reverseX", "reverseY", "reverseBoth"]
-  Change animation direction of parallax effect. Default value "none".
-
-* **block_parallax_x** and **block_parallax_y**  = "boolean"
-  Blocks parallax effect. Default value false.
-
-* **interpolation** = ["linear", "accelerate_decelerate", "accelerate", "anticipate", "anticipate_overshoot", "bounce", "decelerate", "overshoot"]
-  Animation interpolation. Default value "linear".
-
-**Only: no image PEW* **
-
-* **parallax_x** and **parallax_y** = "dimension"
-In widgets without images is necessary specify the size of parallax effect. The size will be split in half for each side. Default value 0.
-  
-
-### Example ###
+### Show me the code ###
 
 ```
 #!java
@@ -71,22 +60,24 @@ In widgets without images is necessary specify the size of parallax effect. The 
 
 ```
 
-![parallax-everywhere-animation-optimize.gif](https://bitbucket.org/repo/4n5roa/images/3116732635-parallax-everywhere-animation-optimize.gif)
+### Attributes ###
 
-### How do I get set up? ###
+**All PEW**
 
-#### .AAR on Android studio ####
-* Download library.aar
-* File -> New Module -> Import .JAR or .AAR Package
-* File name: browse to library.aar
-* Name project: ParallaxEverywhere
+* **reverse**  = ["none", "reverseX", "reverseY", "reverseBoth"]
+  Change animation direction of parallax effect. Default value "none".
 
-#### Gradle ####
-*Coming soon*
+* **block_parallax_x** and **block_parallax_y**  = "boolean"
+  Blocks parallax effect. Default value false.
 
-```
-#!gradle
+* **interpolation** = ["linear", "accelerate_decelerate", "accelerate", "anticipate", "anticipate_overshoot", "bounce", "decelerate", "overshoot"]
+  Animation interpolation. Default value "linear".
 
-  compile 'com.fmsirvent.parallaxeverywhere:1.0'
+**Only: no image PEW* **
 
-```
+* **parallax_x** and **parallax_y** = "dimension"
+In non widgets images is necessary specify the size of parallax effect. The size will be split in half for each side. Default value 0.
+
+## License
+
+ParallaxEverywhere is available under the MIT license. See the LICENSE file for more info.

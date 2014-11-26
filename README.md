@@ -26,8 +26,7 @@ TextView | PEWTextView
 
 ### Show me the code ###
 
-```
-#!java
+```xml
 
            <FrameLayout
                 android:layout_width="0dp"

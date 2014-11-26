@@ -1,6 +1,6 @@
 # Parallax Everywhere #
 
-Parallax everywhere (PEW) is a library with alternative android widgets using parallax effects.
+Parallax everywhere (PEW) is a library with alternative android views using parallax effects.
 
 ## Demo ##
 
@@ -10,52 +10,62 @@ You can try the demo app on google play.
 
 https://play.google.com/store/apps/details?id=com.fmsirvent.ParallaxEverywhereSample
 
-### Widgets with effect? ###
+### Views with effect? ###
 
-Android widget | PEW widget
+Android view | PEW view
 --- | ---
 ImageView | PEWImageView
 TextView | PEWTextView
 
 ### How it works? ###
 
-* Any parallax widget (PEW*) needs to be inside a view with scroll events, ej: scrollView, listView, gridView....
-* Parallax effect on widgets will be related to its position on device screen.
+* Any parallax views (PEW*) needs to be inside a view with scroll events, ej: scrollView, listView, gridView....
+* Parallax effect on views will be related to its position on device screen.
 * Parallax effect in ImageView is calculated with left image in Scale mode centerCrop, centerInside or center. You can't make more parallax effect.
-* Parallax effect in no image widgets needs a size parallax parameter (read:  Attributes)
+* Parallax effect in no image views needs a size parallax parameter (read:  Attributes)
 
 ### Show me the code ###
 
+Gradle dependencies:
+
+```groovy
+compile 'com.fmsirvent:parallaxeverywhere:1.0.0'
+```
+
+Code in layout:
+
 ```xml
+  <!-- add on top parent layout: xmlns:pew="http://schemas.android.com/apk/res-auto" -->
 
-           <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:layout_weight="1">
 
-                <com.fmsirvent.ParallaxEverywhere.PEWImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/alicante_explanada" />
+   <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_weight="1">
 
-                <com.fmsirvent.ParallaxEverywhere.PEWTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:gravity="bottom|center_horizontal"
-                    android:text="@string/alicante_explanada"
-                    android:textColor="@android:color/white"
-                    pew:block_parallax_x="true"
-                    pew:parallax_x="160dp"
-                    pew:parallax_y="160dp"
-                    pew:reverse="reverseY" />
+        <com.fmsirvent.ParallaxEverywhere.PEWImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/alicante_explanada" />
 
-            </FrameLayout>
+        <com.fmsirvent.ParallaxEverywhere.PEWTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="@string/alicante_explanada"
+            android:textColor="@android:color/white"
+            pew:block_parallax_x="true"
+            pew:parallax_x="160dp"
+            pew:parallax_y="160dp"
+            pew:reverse="reverseY" />
+
+    </FrameLayout>
 
 ```
 

@@ -69,6 +69,12 @@ Code in layout:
 
 ```
 
+Proguard:
+
+```
+-dontwarn com.fmsirvent.ParallaxEverywhere.**
+```
+
 ### Attributes ###
 
 **All PEW**

@@ -1,5 +1,7 @@
 # Parallax Everywhere #
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ParallaxEverywhere-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1213)
+
 Parallax everywhere (PEW) is a library with alternative android views using parallax effects.
 
 ## Demo ##

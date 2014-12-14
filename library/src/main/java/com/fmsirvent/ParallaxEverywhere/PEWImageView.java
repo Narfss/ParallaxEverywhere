@@ -13,6 +13,8 @@ import android.widget.ImageView;
 
 import com.fmsirvent.ParallaxEverywhere.Utils.InterpolatorSelector;
 
+import java.lang.Override;
+
 /**
  * Created by fmsirvent on 03/11/14.
  */
@@ -34,18 +36,13 @@ public class PEWImageView  extends ImageView {
 
     Interpolator interpolator = null;
 
-    public PEWImageView(Context context) {
-        super(context);
-        if (!isInEditMode()) {
-            parallaxAnimation();
-        }
-    }
+    ViewTreeObserver.OnScrollChangedListener mOnScrollChangedListener = null;
+    ViewTreeObserver.OnGlobalLayoutListener  mOnGlobalLayoutListener = null;
 
     public PEWImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         if (!isInEditMode()) {
             checkAttributes(attrs);
-            parallaxAnimation();
         }
     }
 
@@ -53,8 +50,39 @@ public class PEWImageView  extends ImageView {
         super(context, attrs, defStyle);
         if (!isInEditMode()) {
             checkAttributes(attrs);
-            parallaxAnimation();
         }
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+
+        mOnScrollChangedListener = new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                applyParallax();
+            }
+        };
+
+        mOnGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                heightImageView = (float) getHeight();
+                widthImageView = (float) getWidth();
+
+                applyParallax();
+            }
+        };
+
+        parallaxAnimation();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        ViewTreeObserver viewTreeObserver = getViewTreeObserver();
+        viewTreeObserver.removeOnScrollChangedListener(mOnScrollChangedListener);
+        viewTreeObserver.removeGlobalOnLayoutListener(mOnGlobalLayoutListener);
+        super.onDetachedFromWindow();
     }
 
     private void checkAttributes(AttributeSet attrs) {
@@ -159,21 +187,8 @@ public class PEWImageView  extends ImageView {
         applyParallax();
 
         ViewTreeObserver viewTreeObserver = getViewTreeObserver();
-        viewTreeObserver.addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                applyParallax();
-            }
-        });
-        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                heightImageView = (float) getHeight();
-                widthImageView = (float) getWidth();
-
-                applyParallax();
-            }
-        });
+        viewTreeObserver.addOnScrollChangedListener(mOnScrollChangedListener);
+        viewTreeObserver.addOnGlobalLayoutListener(mOnGlobalLayoutListener);
     }
 
     private void initSizeScreen() {

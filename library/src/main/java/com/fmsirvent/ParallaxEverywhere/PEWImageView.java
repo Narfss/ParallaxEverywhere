@@ -3,6 +3,7 @@ package com.fmsirvent.ParallaxEverywhere;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Point;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
@@ -74,6 +75,10 @@ public class PEWImageView  extends ImageView {
             }
         };
 
+        ViewTreeObserver viewTreeObserver = getViewTreeObserver();
+        viewTreeObserver.addOnScrollChangedListener(mOnScrollChangedListener);
+        viewTreeObserver.addOnGlobalLayoutListener(mOnGlobalLayoutListener);
+
         parallaxAnimation();
     }
 
@@ -81,7 +86,11 @@ public class PEWImageView  extends ImageView {
     protected void onDetachedFromWindow() {
         ViewTreeObserver viewTreeObserver = getViewTreeObserver();
         viewTreeObserver.removeOnScrollChangedListener(mOnScrollChangedListener);
-        viewTreeObserver.removeGlobalOnLayoutListener(mOnGlobalLayoutListener);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            viewTreeObserver.removeOnGlobalLayoutListener(mOnGlobalLayoutListener);
+        } else {
+            viewTreeObserver.removeGlobalOnLayoutListener(mOnGlobalLayoutListener);
+        }
         super.onDetachedFromWindow();
     }
 
@@ -186,18 +195,20 @@ public class PEWImageView  extends ImageView {
 
         applyParallax();
 
-        ViewTreeObserver viewTreeObserver = getViewTreeObserver();
-        viewTreeObserver.addOnScrollChangedListener(mOnScrollChangedListener);
-        viewTreeObserver.addOnGlobalLayoutListener(mOnGlobalLayoutListener);
     }
 
     private void initSizeScreen() {
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        screenHeight = size.y;
-        screenWidth = size.x;
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            Point size = new Point();
+            display.getSize(size);
+            screenHeight = size.y;
+            screenWidth = size.x;
+        } else {
+            screenHeight = display.getHeight();
+            screenWidth = display.getWidth();
+        }
     }
 
     private void applyParallax() {
@@ -212,9 +223,9 @@ public class PEWImageView  extends ImageView {
             float interpolatedScrollDeltaY = interpolator.getInterpolation(scrollDeltaY);
 
             if (reverseY)
-                setScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * -scrollSpaceY));
+                setMyScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * -scrollSpaceY));
             else
-                setScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * scrollSpaceY));
+                setMyScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * scrollSpaceY));
         }
 
         if (scrollSpaceX != 0) {
@@ -225,10 +236,26 @@ public class PEWImageView  extends ImageView {
             float interpolatedScrollDeltaX = interpolator.getInterpolation(scrollDeltaX);
 
             if (reverseX) {
-                setScrollX((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaX), -0.5f), 0.5f) * -scrollSpaceX));
+                setMyScrollX((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaX), -0.5f), 0.5f) * -scrollSpaceX));
             } else {
-                setScrollX((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaX), -0.5f), 0.5f) * scrollSpaceX));
+                setMyScrollX((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaX), -0.5f), 0.5f) * scrollSpaceX));
             }
+        }
+    }
+
+    private void setMyScrollX(int value) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            setScrollX(value);
+        } else {
+            scrollTo(value, getScrollY());
+        }
+    }
+
+    private void setMyScrollY(int value) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            setScrollY(value);
+        } else {
+            scrollTo(getScrollX(),value);
         }
     }
 

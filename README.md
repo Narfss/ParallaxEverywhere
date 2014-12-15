@@ -31,7 +31,7 @@ TextView | PEWTextView
 Gradle dependencies:
 
 ```groovy
-compile 'com.fmsirvent:parallaxeverywhere:1.0.0'
+compile 'com.fmsirvent:parallaxeverywhere:1.0.1'
 ```
 
 Code in layout:

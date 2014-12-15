@@ -169,9 +169,9 @@ public class PEWTextView extends TextView {
             float interpolatedScrollDeltaY = interpolator.getInterpolation(scrollDeltaY);
 
             if (reverseY)
-                setScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * -scrollSpaceY));
+                setMyScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * -scrollSpaceY));
             else
-                setScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * scrollSpaceY));
+                setMyScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * scrollSpaceY));
         }
 
         if (scrollSpaceX != 0
@@ -183,11 +183,26 @@ public class PEWTextView extends TextView {
             float interpolatedScrollDeltaX = interpolator.getInterpolation(scrollDeltaX);
 
             if (reverseX) {
-                setScrollX((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaX), -0.5f), 0.5f) * -scrollSpaceX));
+                setMyScrollX((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaX), -0.5f), 0.5f) * -scrollSpaceX));
             } else {
-                setScrollX((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaX), -0.5f), 0.5f) * scrollSpaceX));
+                setMyScrollX((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaX), -0.5f), 0.5f) * scrollSpaceX));
             }
         }
     }
 
+    private void setMyScrollX(int value) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            setScrollX(value);
+        } else {
+            scrollTo(value, getScrollY());
+        }
+    }
+
+    private void setMyScrollY(int value) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            setScrollY(value);
+        } else {
+            scrollTo(getScrollX(),value);
+        }
+    }
 }

@@ -1,39 +1,42 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Parallax Everywhere by Narfss</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <title>Parallax Everywhere by Narfss</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header">Parallax Everywhere</h1>
-        <p class="header">Parallax everywhere is a library with alternative android widgets with parallax effects.</p>
+    <div id="container">
+      <div class="inner">
 
-        <ul>
-          <li class="download"><a class="buttons" href="https://github.com/Narfss/ParallaxEverywhere/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/Narfss/ParallaxEverywhere/tarball/master">Download TAR</a></li>
-          <li><a class="buttons github" href="https://github.com/Narfss/ParallaxEverywhere">View On GitHub</a></li>
-        </ul>
+        <header>
+          <h1>Parallax Everywhere</h1>
+          <h2>Parallax everywhere is a library with alternative android widgets with parallax effects.</h2>
+        </header>
 
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/Narfss">Narfss</a></p>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/Narfss/ParallaxEverywhere/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/Narfss/ParallaxEverywhere/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/Narfss/ParallaxEverywhere" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
 
+        <hr>
 
-      </header>
-      <section>
-        <h1>
+        <section id="main_content">
+          <h1>
 <a id="parallax-everywhere" class="anchor" href="#parallax-everywhere" aria-hidden="true"><span class="octicon octicon-link"></span></a>Parallax Everywhere</h1>
 
-<p>Parallax everywhere (PEW) is a library with alternative android widgets using parallax effects.</p>
+<p><a href="https://android-arsenal.com/details/1/1213"><img src="https://img.shields.io/badge/Android%20Arsenal-ParallaxEverywhere-brightgreen.svg?style=flat" alt="Android Arsenal"></a></p>
+
+<p>Parallax everywhere (PEW) is a library with alternative android views using parallax effects.</p>
 
 <h2>
 <a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h2>
@@ -45,13 +48,13 @@
 <p><a href="https://play.google.com/store/apps/details?id=com.fmsirvent.ParallaxEverywhereSample">https://play.google.com/store/apps/details?id=com.fmsirvent.ParallaxEverywhereSample</a></p>
 
 <h3>
-<a id="widgets-with-effect" class="anchor" href="#widgets-with-effect" aria-hidden="true"><span class="octicon octicon-link"></span></a>Widgets with effect?</h3>
+<a id="views-with-effect" class="anchor" href="#views-with-effect" aria-hidden="true"><span class="octicon octicon-link"></span></a>Views with effect?</h3>
 
 <table>
 <thead>
 <tr>
-<th>Android widget</th>
-<th>PEW widget</th>
+<th>Android view</th>
+<th>PEW view</th>
 </tr>
 </thead>
 <tbody>
@@ -70,45 +73,58 @@
 <a id="how-it-works" class="anchor" href="#how-it-works" aria-hidden="true"><span class="octicon octicon-link"></span></a>How it works?</h3>
 
 <ul>
-<li>Any parallax widget (PEW*) needs to be inside a view with scroll events, ej: scrollView, listView, gridView....</li>
-<li>Parallax effect on widgets will be related to its position on device screen.</li>
+<li>Any parallax views (PEW*) needs to be inside a view with scroll events, ej: scrollView, listView, gridView....</li>
+<li>Parallax effect on views will be related to its position on device screen.</li>
 <li>Parallax effect in ImageView is calculated with left image in Scale mode centerCrop, centerInside or center. You can't make more parallax effect.</li>
-<li>Parallax effect in no image widgets needs a size parallax parameter (read:  Attributes)</li>
+<li>Parallax effect in no image views needs a size parallax parameter (read:  Attributes)</li>
 </ul>
 
 <h3>
 <a id="show-me-the-code" class="anchor" href="#show-me-the-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Show me the code</h3>
 
-<div class="highlight highlight-xml"><pre>
-           &lt;<span class="pl-ent">FrameLayout</span>
-                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s1"><span class="pl-pds">"</span>0dp<span class="pl-pds">"</span></span>
-                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s1"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>
-                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_gravity</span>=<span class="pl-s1"><span class="pl-pds">"</span>center<span class="pl-pds">"</span></span>
-                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_margin</span>=<span class="pl-s1"><span class="pl-pds">"</span>10dp<span class="pl-pds">"</span></span>
-                <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_weight</span>=<span class="pl-s1"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>&gt;
+<p>Gradle dependencies:</p>
 
-                &lt;<span class="pl-ent">com</span>.fmsirvent.ParallaxEverywhere.PEWImageView
-                    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s1"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>
-                    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s1"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>
-                    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_gravity</span>=<span class="pl-s1"><span class="pl-pds">"</span>center<span class="pl-pds">"</span></span>
-                    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_margin</span>=<span class="pl-s1"><span class="pl-pds">"</span>10dp<span class="pl-pds">"</span></span>
-                    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">scaleType</span>=<span class="pl-s1"><span class="pl-pds">"</span>centerCrop<span class="pl-pds">"</span></span>
-                    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">src</span>=<span class="pl-s1"><span class="pl-pds">"</span>@drawable/alicante_explanada<span class="pl-pds">"</span></span> /&gt;
+<div class="highlight highlight-groovy"><pre>compile <span class="pl-s1"><span class="pl-pds">'</span>com.fmsirvent:parallaxeverywhere:1.0.1<span class="pl-pds">'</span></span></pre></div>
 
-                &lt;<span class="pl-ent">com</span>.fmsirvent.ParallaxEverywhere.PEWTextView
-                    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s1"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>
-                    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s1"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>
-                    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_margin</span>=<span class="pl-s1"><span class="pl-pds">"</span>10dp<span class="pl-pds">"</span></span>
-                    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">gravity</span>=<span class="pl-s1"><span class="pl-pds">"</span>bottom|center_horizontal<span class="pl-pds">"</span></span>
-                    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">text</span>=<span class="pl-s1"><span class="pl-pds">"</span>@string/alicante_explanada<span class="pl-pds">"</span></span>
-                    <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">textColor</span>=<span class="pl-s1"><span class="pl-pds">"</span>@android:color/white<span class="pl-pds">"</span></span>
-                    <span class="pl-e">pew</span><span class="pl-e">:</span><span class="pl-e">block_parallax_x</span>=<span class="pl-s1"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>
-                    <span class="pl-e">pew</span><span class="pl-e">:</span><span class="pl-e">parallax_x</span>=<span class="pl-s1"><span class="pl-pds">"</span>160dp<span class="pl-pds">"</span></span>
-                    <span class="pl-e">pew</span><span class="pl-e">:</span><span class="pl-e">parallax_y</span>=<span class="pl-s1"><span class="pl-pds">"</span>160dp<span class="pl-pds">"</span></span>
-                    <span class="pl-e">pew</span><span class="pl-e">:</span><span class="pl-e">reverse</span>=<span class="pl-s1"><span class="pl-pds">"</span>reverseY<span class="pl-pds">"</span></span> /&gt;
+<p>Code in layout:</p>
 
-            &lt;/<span class="pl-ent">FrameLayout</span>&gt;
+<div class="highlight highlight-xml"><pre>  <span class="pl-c">&lt;!-- add on top parent layout: xmlns:pew="http://schemas.android.com/apk/res-auto" --&gt;</span>
+
+
+   &lt;<span class="pl-ent">FrameLayout</span>
+        <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s1"><span class="pl-pds">"</span>0dp<span class="pl-pds">"</span></span>
+        <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s1"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>
+        <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_gravity</span>=<span class="pl-s1"><span class="pl-pds">"</span>center<span class="pl-pds">"</span></span>
+        <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_margin</span>=<span class="pl-s1"><span class="pl-pds">"</span>10dp<span class="pl-pds">"</span></span>
+        <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_weight</span>=<span class="pl-s1"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>&gt;
+
+        &lt;<span class="pl-ent">com</span>.fmsirvent.ParallaxEverywhere.PEWImageView
+            <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s1"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>
+            <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s1"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>
+            <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_gravity</span>=<span class="pl-s1"><span class="pl-pds">"</span>center<span class="pl-pds">"</span></span>
+            <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_margin</span>=<span class="pl-s1"><span class="pl-pds">"</span>10dp<span class="pl-pds">"</span></span>
+            <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">scaleType</span>=<span class="pl-s1"><span class="pl-pds">"</span>centerCrop<span class="pl-pds">"</span></span>
+            <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">src</span>=<span class="pl-s1"><span class="pl-pds">"</span>@drawable/alicante_explanada<span class="pl-pds">"</span></span> /&gt;
+
+        &lt;<span class="pl-ent">com</span>.fmsirvent.ParallaxEverywhere.PEWTextView
+            <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_width</span>=<span class="pl-s1"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>
+            <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_height</span>=<span class="pl-s1"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>
+            <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">layout_margin</span>=<span class="pl-s1"><span class="pl-pds">"</span>10dp<span class="pl-pds">"</span></span>
+            <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">gravity</span>=<span class="pl-s1"><span class="pl-pds">"</span>bottom|center_horizontal<span class="pl-pds">"</span></span>
+            <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">text</span>=<span class="pl-s1"><span class="pl-pds">"</span>@string/alicante_explanada<span class="pl-pds">"</span></span>
+            <span class="pl-e">android</span><span class="pl-e">:</span><span class="pl-e">textColor</span>=<span class="pl-s1"><span class="pl-pds">"</span>@android:color/white<span class="pl-pds">"</span></span>
+            <span class="pl-e">pew</span><span class="pl-e">:</span><span class="pl-e">block_parallax_x</span>=<span class="pl-s1"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>
+            <span class="pl-e">pew</span><span class="pl-e">:</span><span class="pl-e">parallax_x</span>=<span class="pl-s1"><span class="pl-pds">"</span>160dp<span class="pl-pds">"</span></span>
+            <span class="pl-e">pew</span><span class="pl-e">:</span><span class="pl-e">parallax_y</span>=<span class="pl-s1"><span class="pl-pds">"</span>160dp<span class="pl-pds">"</span></span>
+            <span class="pl-e">pew</span><span class="pl-e">:</span><span class="pl-e">reverse</span>=<span class="pl-s1"><span class="pl-pds">"</span>reverseY<span class="pl-pds">"</span></span> /&gt;
+
+    &lt;/<span class="pl-ent">FrameLayout</span>&gt;
 </pre></div>
+
+<p>Proguard:</p>
+
+<pre><code>-dontwarn com.fmsirvent.ParallaxEverywhere.**
+</code></pre>
 
 <h3>
 <a id="attributes" class="anchor" href="#attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
@@ -136,13 +152,14 @@ In non widgets images is necessary specify the size of parallax effect. The size
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>ParallaxEverywhere is available under the MIT license. See the LICENSE file for more info.</p>
-      </section>
-      <footer>
-        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
-      </footer>
-    </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-		          <script type="text/javascript">
+        </section>
+
+        <footer>
+          Parallax Everywhere is maintained by <a href="https://github.com/Narfss">Narfss</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+                  <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
@@ -153,5 +170,7 @@ In non widgets images is necessary specify the size of parallax effect. The size
             } catch(err) {}
           </script>
 
+      </div>
+    </div>
   </body>
 </html>

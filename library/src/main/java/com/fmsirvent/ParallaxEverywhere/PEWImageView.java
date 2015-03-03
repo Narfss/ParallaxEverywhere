@@ -208,6 +208,7 @@ public class PEWImageView  extends ImageView {
             scrollSpaceY = (dnewHeight > vheight) ? (dnewHeight - vheight) : 0;
             scrollSpaceX = (dnewWidth > vwidth) ? (dnewWidth - vwidth) : 0;
         }
+        applyParallax();
     }
 
     private void parallaxAnimation() {

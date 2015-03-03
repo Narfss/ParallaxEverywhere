@@ -32,6 +32,8 @@ public class PEWImageView  extends ImageView {
     private float heightImageView;
     private float widthImageView;
 
+    private boolean updateOnDraw = false;
+
     private boolean blockParallaxX = false;
     private boolean blockParallaxY = false;
 
@@ -39,6 +41,7 @@ public class PEWImageView  extends ImageView {
 
     ViewTreeObserver.OnScrollChangedListener mOnScrollChangedListener = null;
     ViewTreeObserver.OnGlobalLayoutListener  mOnGlobalLayoutListener = null;
+    ViewTreeObserver.OnDrawListener onDrawListener = null;
 
     public PEWImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -79,6 +82,17 @@ public class PEWImageView  extends ImageView {
         viewTreeObserver.addOnScrollChangedListener(mOnScrollChangedListener);
         viewTreeObserver.addOnGlobalLayoutListener(mOnGlobalLayoutListener);
 
+        if (updateOnDraw
+                && android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            onDrawListener = new ViewTreeObserver.OnDrawListener() {
+                @Override
+                public void onDraw() {
+                    applyParallax();
+                }
+            };
+            viewTreeObserver.addOnDrawListener(onDrawListener);
+        }
+
         parallaxAnimation();
     }
 
@@ -91,12 +105,18 @@ public class PEWImageView  extends ImageView {
         } else {
             viewTreeObserver.removeGlobalOnLayoutListener(mOnGlobalLayoutListener);
         }
+        if (updateOnDraw
+            && android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                viewTreeObserver.removeOnDrawListener(onDrawListener);
+        }
         super.onDetachedFromWindow();
     }
 
     private void checkAttributes(AttributeSet attrs) {
         TypedArray arr = getContext().obtainStyledAttributes(attrs, R.styleable.PEWAttrs);
         int reverse = arr.getInt(R.styleable.PEWAttrs_reverse, 1);
+
+        updateOnDraw = arr.getBoolean(R.styleable.PEWAttrs_update_onDraw, false);
 
         blockParallaxX = arr.getBoolean(R.styleable.PEWAttrs_block_parallax_x, false);
         blockParallaxY = arr.getBoolean(R.styleable.PEWAttrs_block_parallax_y, false);

@@ -32,7 +32,7 @@ TextView | PEWTextView
 Gradle dependencies:
 
 ```groovy
-compile 'com.fmsirvent:parallaxeverywhere:1.0.2'
+compile 'com.fmsirvent:parallaxeverywhere:1.0.3'
 ```
 
 Code in layout:
@@ -90,6 +90,9 @@ Proguard:
 
 * **interpolation** = ["linear", "accelerate_decelerate", "accelerate", "anticipate", "anticipate_overshoot", "bounce", "decelerate", "overshoot"]
   Animation interpolation. Default value "linear".
+
+* **update_onDraw**  = = "boolean"
+  Experimental attribute: update the parallax effect on draw event. Try if the parents don't has scroll. Now only works on +API:16 (Jelly bean). Default value false.
 
 **Only: no image PEW**
 

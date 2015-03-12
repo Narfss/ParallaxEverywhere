@@ -24,15 +24,14 @@ public class PEWImageView extends ImageView {
 
     public boolean reverseX = false;
     public boolean reverseY = false;
-    public float scrollSpaceX = 0;
-    public float scrollSpaceY = 0;
     public boolean updateOnDraw = false;
     public boolean blockParallaxX = false;
     public boolean blockParallaxY = false;
 
     private int screenWidth;
     private int screenHeight;
-
+    private float scrollSpaceX = 0;
+    private float scrollSpaceY = 0;
     private float heightImageView;
     private float widthImageView;
 

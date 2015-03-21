@@ -9,6 +9,7 @@ import android.view.Display;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
 import com.fmsirvent.ParallaxEverywhere.Utils.InterpolatorSelector;
@@ -17,21 +18,23 @@ import com.fmsirvent.ParallaxEverywhere.Utils.InterpolatorSelector;
  * Created by fmsirvent on 03/11/14.
  */
 public class PEWTextView extends TextView {
-    private boolean reverseX = false;
-    private boolean reverseY = false;
-    private int scrollSpaceX = 0;
-    private int scrollSpaceY = 0;
-    private boolean updateOnDraw = false;
-    private boolean blockParallaxX = false;
-    private boolean blockParallaxY = false;
+
+    public boolean reverseX = false;
+    public boolean reverseY = false;
+    public int scrollSpaceX = 0;
+    public int scrollSpaceY = 0;
+    public boolean updateOnDraw = false;
+    public boolean blockParallaxX = false;
+    public boolean blockParallaxY = false;
+
     private int screenHeight;
     private int screenWidth;
     private float heightView;
     private float widthView;
-    private Interpolator interpolator;
+    private Interpolator interpolator = new LinearInterpolator();
     private ViewTreeObserver.OnScrollChangedListener mOnScrollChangedListener = null;
     private ViewTreeObserver.OnGlobalLayoutListener mOnGlobalLayoutListener = null;
-    ViewTreeObserver.OnDrawListener onDrawListener = null;
+    private ViewTreeObserver.OnDrawListener onDrawListener = null;
 
     public PEWTextView(Context context) {
         super(context);
@@ -225,4 +228,9 @@ public class PEWTextView extends TextView {
             scrollTo(getScrollX(),value);
         }
     }
+
+    public void setInterpolator(Interpolator interpol) {
+        interpolator = interpol;
+    }
+
 }

@@ -10,6 +10,7 @@ import android.view.Display;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
 import com.fmsirvent.ParallaxEverywhere.Utils.InterpolatorSelector;
@@ -19,32 +20,38 @@ import java.lang.Override;
 /**
  * Created by fmsirvent on 03/11/14.
  */
-public class PEWImageView  extends ImageView {
+public class PEWImageView extends ImageView {
 
-    private boolean reverseX = false;
-    private boolean reverseY = false;
-    private float scrollSpaceX = 0;
-    private float scrollSpaceY = 0;
+    public boolean reverseX = false;
+    public boolean reverseY = false;
+    public boolean updateOnDraw = false;
+    public boolean blockParallaxX = false;
+    public boolean blockParallaxY = false;
 
     private int screenWidth;
     private int screenHeight;
-
+    private float scrollSpaceX = 0;
+    private float scrollSpaceY = 0;
     private float heightImageView;
     private float widthImageView;
 
-    private boolean blockParallaxX = false;
-    private boolean blockParallaxY = false;
+    private Interpolator interpolator = new LinearInterpolator();
 
-    Interpolator interpolator = null;
+    private ViewTreeObserver.OnScrollChangedListener mOnScrollChangedListener = null;
+    private ViewTreeObserver.OnGlobalLayoutListener  mOnGlobalLayoutListener = null;
+    private ViewTreeObserver.OnDrawListener onDrawListener = null;
 
-    ViewTreeObserver.OnScrollChangedListener mOnScrollChangedListener = null;
-    ViewTreeObserver.OnGlobalLayoutListener  mOnGlobalLayoutListener = null;
+    public PEWImageView(Context context) {
+        super(context);
+        checkScale();
+    }
 
     public PEWImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         if (!isInEditMode()) {
             checkAttributes(attrs);
         }
+        checkScale();
     }
 
     public PEWImageView(Context context, AttributeSet attrs, int defStyle) {
@@ -52,6 +59,7 @@ public class PEWImageView  extends ImageView {
         if (!isInEditMode()) {
             checkAttributes(attrs);
         }
+        checkScale();
     }
 
     @Override
@@ -79,6 +87,17 @@ public class PEWImageView  extends ImageView {
         viewTreeObserver.addOnScrollChangedListener(mOnScrollChangedListener);
         viewTreeObserver.addOnGlobalLayoutListener(mOnGlobalLayoutListener);
 
+        if (updateOnDraw
+                && android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            onDrawListener = new ViewTreeObserver.OnDrawListener() {
+                @Override
+                public void onDraw() {
+                    applyParallax();
+                }
+            };
+            viewTreeObserver.addOnDrawListener(onDrawListener);
+        }
+
         parallaxAnimation();
     }
 
@@ -91,12 +110,43 @@ public class PEWImageView  extends ImageView {
         } else {
             viewTreeObserver.removeGlobalOnLayoutListener(mOnGlobalLayoutListener);
         }
+        if (updateOnDraw
+            && android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                viewTreeObserver.removeOnDrawListener(onDrawListener);
+        }
         super.onDetachedFromWindow();
+    }
+
+    private boolean checkScale() {
+        switch (getScaleType()) {
+            case CENTER:
+            case CENTER_CROP:
+            case CENTER_INSIDE:
+                return true;
+            case FIT_CENTER:
+                Log.d("ParallaxEverywhere", "Scale type firCenter unsupported");
+                break;
+            case FIT_END:
+                Log.d("ParallaxEverywhere", "Scale type fitEnd unsupported");
+                break;
+            case FIT_START:
+                Log.d("ParallaxEverywhere", "Scale type fitStart unsupported");
+                break;
+            case FIT_XY:
+                Log.d("ParallaxEverywhere", "Scale type fitXY unsupported");
+                break;
+            case MATRIX:
+                Log.d("ParallaxEverywhere", "Scale type matrix unsupported");
+                break;
+        }
+        return false;
     }
 
     private void checkAttributes(AttributeSet attrs) {
         TypedArray arr = getContext().obtainStyledAttributes(attrs, R.styleable.PEWAttrs);
         int reverse = arr.getInt(R.styleable.PEWAttrs_reverse, 1);
+
+        updateOnDraw = arr.getBoolean(R.styleable.PEWAttrs_update_onDraw, false);
 
         blockParallaxX = arr.getBoolean(R.styleable.PEWAttrs_block_parallax_x, false);
         blockParallaxY = arr.getBoolean(R.styleable.PEWAttrs_block_parallax_y, false);
@@ -118,27 +168,7 @@ public class PEWImageView  extends ImageView {
                 break;
         }
 
-        switch (getScaleType()) {
-            case CENTER:
-            case CENTER_CROP:
-            case CENTER_INSIDE:
-                break;
-            case FIT_CENTER:
-                Log.d("ParallaxEverywhere", "Scale type firCenter unsupported");
-                break;
-            case FIT_END:
-                Log.d("ParallaxEverywhere", "Scale type fitEnd unsupported");
-                break;
-            case FIT_START:
-                Log.d("ParallaxEverywhere", "Scale type fitStart unsupported");
-                break;
-            case FIT_XY:
-                Log.d("ParallaxEverywhere", "Scale type fitXY unsupported");
-                break;
-            case MATRIX:
-                Log.d("ParallaxEverywhere", "Scale type matrix unsupported");
-                break;
-        }
+        checkScale();
 
         int interpolationId = arr.getInt(R.styleable.PEWAttrs_interpolation, 0);
 
@@ -188,6 +218,7 @@ public class PEWImageView  extends ImageView {
             scrollSpaceY = (dnewHeight > vheight) ? (dnewHeight - vheight) : 0;
             scrollSpaceX = (dnewWidth > vwidth) ? (dnewWidth - vwidth) : 0;
         }
+        applyParallax();
     }
 
     private void parallaxAnimation() {
@@ -259,21 +290,39 @@ public class PEWImageView  extends ImageView {
         }
     }
 
-    public float getScrollSpaceX() {
-        return scrollSpaceX;
+    public void setInterpolator(Interpolator interpol) {
+        interpolator = interpol;
     }
 
-    public void setScrollSpaceX(float scrollSpaceX) {
-        this.scrollSpaceX = scrollSpaceX;
+    public boolean isReverseX() {
+        return reverseX;
     }
 
-    public float getScrollSpaceY() {
-        return scrollSpaceY;
+    public void setReverseX(boolean reverseX) {
+        this.reverseX = reverseX;
     }
 
-    public void setScrollSpaceY(float scrollSpaceY) {
-        this.scrollSpaceY = scrollSpaceY;
+    public boolean isReverseY() {
+        return reverseY;
     }
 
+    public void setReverseY(boolean reverseY) {
+        this.reverseY = reverseY;
+    }
 
+    public boolean isBlockParallaxX() {
+        return blockParallaxX;
+    }
+
+    public void setBlockParallaxX(boolean blockParallaxX) {
+        this.blockParallaxX = blockParallaxX;
+    }
+
+    public boolean isBlockParallaxY() {
+        return blockParallaxY;
+    }
+
+    public void setBlockParallaxY(boolean blockParallaxY) {
+        this.blockParallaxY = blockParallaxY;
+    }
 }

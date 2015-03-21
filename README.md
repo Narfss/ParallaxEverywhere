@@ -1,11 +1,12 @@
-# Parallax Everywhere #
+
+# ![](https://raw.githubusercontent.com/Narfss/ParallaxEverywhere/master/sample/src/main/res/drawable-mdpi/ic_launcher.png) Parallax Everywhere#
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ParallaxEverywhere-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1213)
+
 
 Parallax everywhere (PEW) is a library with alternative android views using parallax effects.
 
 ## Demo ##
-
 ![](https://raw.githubusercontent.com/Narfss/ParallaxEverywhere/master/parallax-everywhere-animation-optimize.gif)
 
 You can try the demo app on google play.
@@ -31,7 +32,7 @@ TextView | PEWTextView
 Gradle dependencies:
 
 ```groovy
-compile 'com.fmsirvent:parallaxeverywhere:1.0.1'
+compile 'com.fmsirvent:parallaxeverywhere:1.0.4'
 ```
 
 Code in layout:
@@ -89,6 +90,9 @@ Proguard:
 
 * **interpolation** = ["linear", "accelerate_decelerate", "accelerate", "anticipate", "anticipate_overshoot", "bounce", "decelerate", "overshoot"]
   Animation interpolation. Default value "linear".
+
+* **update_onDraw**  = = "boolean"
+  Experimental attribute: update the parallax effect on draw event. Try if the parents don't has scroll. Now only works on +API:16 (Jelly bean). Default value false.
 
 **Only: no image PEW**
 

@@ -19,8 +19,12 @@ import java.lang.Override;
 
 /**
  * Created by fmsirvent on 03/11/14.
+ *
+ * Changed by @alexanderbezverhni on 10/06/15 - added support for parallax distance limit.
  */
 public class PEWImageView extends ImageView {
+
+    public static final float FACTOR_DEFAULT = -1.0f;
 
     public boolean reverseX = false;
     public boolean reverseY = false;
@@ -34,6 +38,7 @@ public class PEWImageView extends ImageView {
     private float scrollSpaceY = 0;
     private float heightImageView;
     private float widthImageView;
+    private float factor = FACTOR_DEFAULT;
 
     private Interpolator interpolator = new LinearInterpolator();
 
@@ -151,6 +156,10 @@ public class PEWImageView extends ImageView {
         blockParallaxX = arr.getBoolean(R.styleable.PEWAttrs_block_parallax_x, false);
         blockParallaxY = arr.getBoolean(R.styleable.PEWAttrs_block_parallax_y, false);
 
+        float factor = arr.getFloat(R.styleable.PEWAttrs_factor, FACTOR_DEFAULT);
+        if (factor != FACTOR_DEFAULT)
+            setFactor(factor);
+
         reverseX = false;
         reverseY = false;
         switch (reverse) {
@@ -215,23 +224,36 @@ public class PEWImageView extends ImageView {
                     break;
             }
 
-            scrollSpaceY = (dnewHeight > vheight) ? (dnewHeight - vheight) : 0;
-            scrollSpaceX = (dnewWidth > vwidth) ? (dnewWidth - vwidth) : 0;
+            scrollSpaceY = getScrollSpace(vheight, dnewHeight, factor);
+            scrollSpaceX = getScrollSpace(vwidth, dnewWidth, factor);
         }
         applyParallax();
+    }
+
+    private float getScrollSpace(int viewEdgeSize, float imageEdgeSize, float factor){
+        if (viewEdgeSize > imageEdgeSize){
+            return 0;
+        }
+
+        float maxScrollSpace = imageEdgeSize - viewEdgeSize;
+        if (factor == FACTOR_DEFAULT) {
+            return maxScrollSpace;
+        }
+
+        float factored = viewEdgeSize * (factor - 1.0f);
+        return Math.min(factored, maxScrollSpace);
     }
 
     private void parallaxAnimation() {
         initSizeScreen();
 
         applyParallax();
-
     }
 
     private void initSizeScreen() {
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             Point size = new Point();
             display.getSize(size);
             screenHeight = size.y;
@@ -279,7 +301,7 @@ public class PEWImageView extends ImageView {
     }
 
     private void setMyScrollX(int value) {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             setScrollX(value);
         } else {
             scrollTo(value, getScrollY());
@@ -287,7 +309,7 @@ public class PEWImageView extends ImageView {
     }
 
     private void setMyScrollY(int value) {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             setScrollY(value);
         } else {
             scrollTo(getScrollX(),value);
@@ -328,5 +350,36 @@ public class PEWImageView extends ImageView {
 
     public void setBlockParallaxY(boolean blockParallaxY) {
         this.blockParallaxY = blockParallaxY;
+    }
+
+    @Override
+    public void scrollTo(int x, int y) {
+        super.scrollTo(isBlockParallaxX() ? 0 : x, isBlockParallaxY() ? 0 : y);
+    }
+
+    /**
+     * Limit parallax distance to some relative value, to make parallax animation more gentle.<br>
+     *     Example: for an ImageView with 400x300 dimensions, we set an image with 400x1000 dimensions.
+     *     Enabling Y axis animation, we will experience very "aggressive" animation, while image will be moved
+     *     by 600 pixels vertically. Setting factor to 1.5f will result in 150px diff: 300*1.5=150
+     *
+     * @param factor
+     *      must be larger or equal than 1.0f
+     */
+    public void setFactor(float factor) {
+        if (factor < 1.0f)
+            throw new IllegalArgumentException("Factor value must be larger or equal than 1.0f !");
+
+        this.factor = factor;
+    }
+
+    /**
+     * Get parallax animation bounds factor.
+	 *
+     * @return
+     *     either {@value #FACTOR_DEFAULT} (default value, when none factor is applied) or value that is larger or equal to 1.0f.
+     */
+    public float getFactor(){
+		return factor;
     }
 }

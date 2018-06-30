@@ -280,4 +280,9 @@ public class PEWTextView extends TextView {
     public void setBlockParallaxY(boolean blockParallaxY) {
         this.blockParallaxY = blockParallaxY;
     }
+
+    @Override
+    public void scrollTo(int x, int y) {
+        super.scrollTo(isBlockParallaxX() ? 0 : x, isBlockParallaxY() ? 0 : y);
+    }
 }
